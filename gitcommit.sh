@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git diff
+git diff | less
 read -p "Commit message: " msg
 git add .
 git commit -m "$msg"

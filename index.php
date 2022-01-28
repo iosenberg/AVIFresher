@@ -1,10 +1,9 @@
-<? php
-
-	echo 'beep beep';
-
-?>
-
 <!DOCTYPE html>
 <html>
-	beep beep beep
+<head>
+	<title>AVI Fresher or whatever</title>
+</head>
+<body>
+	<h1><?php echo 'beep beep'?></h1>
+</body>
 </html>
