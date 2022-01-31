@@ -68,8 +68,25 @@
 	<h1>AVI Fresh SUCKS</h1>
 	<!-- Button Test -->
 	<div>
-		<script>
-			function
+		<script type="text/javascript">
+			function makeURL() {
+				var queries = 
+					(document.getElementById('Soy').value ? "Soy=TRUE&") +
+					(document.getElementById('Dairy').value ? "Dairy=TRUE&") +
+					(document.getElementById('Wheat').value ? "Wheat=TRUE&") +
+					(document.getElementById('Vegetarian').value ? "Vegetarian=TRUE&") +
+					(document.getElementById('Vegan').value ? "Vegan=TRUE&") +
+					(document.getElementById('Egg').value ? "Egg=TRUE&") +
+					(document.getElementById('Fish').value ? "Fish=TRUE&") +
+					(document.getElementById('Peanut').value ? "Peanut=TRUE&") +
+					(document.getElementById('Shellfish').value ? "Shellfish=TRUE&") +
+					(document.getElementById('TreeNut').value ? "TreeNut=TRUE&") +
+					(document.getElementById('GlutenSensitive').value ? "GlutenSensitive=TRUE&") +
+					(document.getElementById('Halal').value ? "Halal=TRUE&") +
+					(document.getElementById('Kosher').value ? "Kosher=TRUE&");
+
+				window.location = "localhost/AVIFresher/index.php" + queries;
+			}
 		</script>
 
 		<form>
@@ -113,7 +130,7 @@
 			<label for="Kosher">Kosher:</label>
 			<input type="checkbox" id="Kosher" name="Kosher">
 
-			<input type="button" value="Go" onClick="parent.location='$url'">
+			<input type="button" value="Go" onClick="goToPage();">
 		</form>
 	</div>
 	<div>
