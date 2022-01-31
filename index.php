@@ -1,20 +1,23 @@
 <?php
 
-	//All dietary restrictions as booleans
-	$Soy = FALSE;
-	$Dairy = FALSE;
-	$Wheat = FALSE;
-	$Vegetarian = FALSE;
-	$Vegan = FALSE;
-	$Egg = FALSE;
-	$Fish = FALSE;
-	$Peanut = FALSE;
-	$Sesame = FALSE;
-	$Shellfish = FALSE;
-	$TreeNut = FALSE;
-	$GlutenSensitive = FALSE;
-	$Halal = FALSE;
-	$Kosher = FALSE;
+	//Read booleans from url, default to false
+	$Soy = (isset($_GET['Soy']) ? $_GET['Soy'] : FALSE);
+	$Dairy = (isset($_GET['Dairy']) ? $_GET['Dairy'] : FALSE);
+	$Wheat = (isset($_GET['Wheat']) ? $_GET['Wheat'] : FALSE);
+	$Vegetarian = (isset($_GET['Vegetarian']) ? $_GET['Vegetarian'] : FALSE);
+	$Vegan = (isset($_GET['Vegan']) ? $_GET['Vegan'] : FALSE);
+	$Egg = (isset($_GET['Egg']) ? $_GET['Egg'] : FALSE);
+	$Fish = (isset($_GET['Fish']) ? $_GET['Fish'] : FALSE);
+	$Peanut = (isset($_GET['Peanut']) ? $_GET['Peanut'] : FALSE);
+	$Sesame = (isset($_GET['Sesame']) ? $_GET['Sesame'] : FALSE);
+	$Shellfish = (isset($_GET['Shellfish']) ? $_GET['Shellfish'] : FALSE);
+	$TreeNut = (isset($_GET['TreeNut']) ? $_GET['TreeNut'] : FALSE);
+	$GlutenSensitive = (isset($_GET['GlutenSensitive']) ? $_GET['GlutenSensitive'] : FALSE);
+	$Halal = (isset($_GET['Halal']) ? $_GET['Halal'] : FALSE);
+	$Kosher = (isset($_GET['Kosher']) ? $_GET['Kosher'] : FALSE);
+
+	//Read sorting method from url, default to name?
+	$Sort = (isset($_GET['Sort']) ? $_GET['Sort'] : 'Name');
 
 	//Connect to database
 	$conn = mysqli_connect('localhost', 'AVIFresher', 'AVIIFresh42069', 'stevenson');
@@ -26,21 +29,21 @@
 
 	//Write query for items
 	$sql = 'SELECT * FROM food_items WHERE calories != 0';
-	if($Soy) $sql = $sql . ' and Soy != 1';
-	if($Dairy) $sql = $sql . ' and Dairy != 1';
-	if($Wheat) $sql = $sql . ' and Wheat != 1';
-	if($Vegetarian) $sql = $sql . ' and Vegetarian != 1';
-	if($Vegan) $sql = $sql . ' and Vegan != 1';
-	if($Egg) $sql = $sql . ' and Egg != 1';
-	if($Fish) $sql = $sql . ' and Fish != 1';
-	if($Peanut) $sql = $sql . ' and Peanut != 1';
-	if($Sesame) $sql = $sql . ' and Sesame != 1';
-	if($Shellfish) $sql = $sql . ' and Shellfish != 1';
-	if($TreeNut) $sql = $sql . ' and Tree Nut != 1';
-	if($GlutenSensitive) $sql = $sql . ' and Gluten Sensitive != 1';
-	if($Halal) $sql = $sql . ' and Halal != 0';
-	if($Kosher) $sql = $sql . ' and Kosher != 0';	
-	$sql = $sql . ' ORDER BY name';
+	if($Soy) $sql .= ' and Soy != 1';
+	if($Dairy) $sql .= ' and Dairy != 1';
+	if($Wheat) $sql .= ' and Wheat != 1';
+	if($Vegetarian) $sql .= ' and Vegetarian != 1';
+	if($Vegan) $sql .= ' and Vegan != 1';
+	if($Egg) $sql .= ' and Egg != 1';
+	if($Fish) $sql .= ' and Fish != 1';
+	if($Peanut) $sql .= ' and Peanut != 1';
+	if($Sesame) $sql .= ' and Sesame != 1';
+	if($Shellfish) $sql .= ' and Shellfish != 1';
+	if($TreeNut) $sql .= ' and Tree Nut != 1';
+	if($GlutenSensitive) $sql .= ' and Gluten Sensitive != 1';
+	if($Halal) $sql .= ' and Halal != 0';
+	if($Kosher) $sql .= ' and Kosher != 0';	
+	$sql .= ' ORDER BY ' . $Sort;
 	
 	//Make query and get result
 	$result = mysqli_query($conn, $sql);
@@ -65,7 +68,53 @@
 	<h1>AVI Fresh SUCKS</h1>
 	<!-- Button Test -->
 	<div>
-		<button type="button" onClick="$Soy = !$Soy"> Soy </button>
+		<script>
+			function
+		</script>
+
+		<form>
+
+			<label for="Soy">Soy:</label>
+			<input type="checkbox" id="Soy" name="Soy">
+
+			<label for="Dairy">Dairy:</label>
+			<input type="checkbox" id="Dairy" name="Dairy">
+
+			<label for="Wheat">Wheat:</label>
+			<input type="checkbox" id="Wheat" name="Wheat">
+
+			<label for="Vegetarian">Vegetarian:</label>
+			<input type="checkbox" id="Vegetarian" name="Vegetarian">
+
+			<label for="Vegan">Vegan:</label>
+			<input type="checkbox" id="Vegan" name="Vegan">
+
+			<label for="Egg">Egg:</label>
+			<input type="checkbox" id="Egg" name="Egg">
+
+			<label for="Fish">Fish:</label>
+			<input type="checkbox" id="Fish" name="Fish">
+
+			<label for="Peanut">Peanut:</label>
+			<input type="checkbox" id="Peanut" name="Peanut">
+
+			<label for="Shellfish">Shellfish:</label>
+			<input type="checkbox" id="Shellfish" name="Shellfish">
+
+			<label for="TreeNut">Tree Nut:</label>
+			<input type="checkbox" id="TreeNut" name="TreeNut">
+
+			<label for="GlutenSensitive">Gluten Sensitive:</label>
+			<input type="checkbox" id="GlutenSensitive" name="GlutenSensitive">
+
+			<label for="Halal">Halal:</label>
+			<input type="checkbox" id="Halal" name="Halal">
+
+			<label for="Kosher">Kosher:</label>
+			<input type="checkbox" id="Kosher" name="Kosher">
+
+			<input type="button" value="Go" onClick="parent.location='$url'">
+		</form>
 	</div>
 	<div>
 		<?php foreach($food_items as $item){ ?>
@@ -76,7 +125,7 @@
 	</div>
 </body>
 </html>
-<!-- =======
+<!-- ======= -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -86,7 +135,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- you can copy the nav tag as is over to other html files to make the navbar function
+    <!-- you can copy the nav tag as is over to other html files to make the navbar function -->
     <nav class="navbar">
         <div class="navbar__container">
             <a href="index.html" id="navbar__logo">Avi Fresher</a>
@@ -128,8 +177,8 @@
                 
             </div>
             <br>
-    <!-- the following tag links it to the javascript file, make sure you add it to the body of every html file 
+    <!-- the following tag links it to the javascript file, make sure you add it to the body of every html file -->
     <script src="app.js"></script>
   </body>
 </html>
->>>>>>> c62b7b58ae0ea2f9ccb6ec7f581907204c583898 -->
+<!-- >>>>>>> c62b7b58ae0ea2f9ccb6ec7f581907204c583898 -->
