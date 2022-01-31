@@ -1,5 +1,21 @@
 <?php
 
+	//All dietary restrictions as booleans
+	$Soy = FALSE;
+	$Dairy = FALSE;
+	$Wheat = FALSE;
+	$Vegetarian = FALSE;
+	$Vegan = FALSE;
+	$Egg = FALSE;
+	$Fish = FALSE;
+	$Peanut = FALSE;
+	$Sesame = FALSE;
+	$Shellfish = FALSE;
+	$TreeNut = FALSE;
+	$GlutenSensitive = FALSE;
+	$Halal = FALSE;
+	$Kosher = FALSE;
+
 	//Connect to database
 	$conn = mysqli_connect('localhost', 'AVIFresher', 'AVIIFresh42069', 'stevenson');
 
@@ -9,8 +25,23 @@
 	}
 
 	//Write query for items
-	$sql = 'SELECT name, calories FROM food_items';
-
+	$sql = 'SELECT * FROM food_items WHERE calories != 0';
+	if($Soy) $sql = $sql . ' and Soy != 1';
+	if($Dairy) $sql = $sql . ' and Dairy != 1';
+	if($Wheat) $sql = $sql . ' and Wheat != 1';
+	if($Vegetarian) $sql = $sql . ' and Vegetarian != 1';
+	if($Vegan) $sql = $sql . ' and Vegan != 1';
+	if($Egg) $sql = $sql . ' and Egg != 1';
+	if($Fish) $sql = $sql . ' and Fish != 1';
+	if($Peanut) $sql = $sql . ' and Peanut != 1';
+	if($Sesame) $sql = $sql . ' and Sesame != 1';
+	if($Shellfish) $sql = $sql . ' and Shellfish != 1';
+	if($TreeNut) $sql = $sql . ' and Tree Nut != 1';
+	if($GlutenSensitive) $sql = $sql . ' and Gluten Sensitive != 1';
+	if($Halal) $sql = $sql . ' and Halal != 0';
+	if($Kosher) $sql = $sql . ' and Kosher != 0';	
+	$sql = $sql . ' ORDER BY name';
+	
 	//Make query and get result
 	$result = mysqli_query($conn, $sql);
 
@@ -25,23 +56,27 @@
 ?>
 
 <!DOCTYPE html>
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD -->
 <html>
 <head>
 	<title>AVI Fresher or whatever</title>
 </head>
 <body>
 	<h1>AVI Fresh SUCKS</h1>
+	<!-- Button Test -->
+	<div>
+		<button type="button" onClick="$Soy = !$Soy"> Soy </button>
+	</div>
 	<div>
 		<?php foreach($food_items as $item){ ?>
 			<div>
-				<?php echo htmlspecialchars($item['name'] . ' - ' . $item['calories']) . ' Calories' ?>
+				<?php echo htmlspecialchars($item['Name'] . ' - ' . $item['Calories']) . ' Calories' ?>
 			</div>
 		<?php } ?>
 	</div>
 </body>
 </html>
-=======
+<!-- =======
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -51,7 +86,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <!-- you can copy the nav tag as is over to other html files to make the navbar function -->
+    <!-- you can copy the nav tag as is over to other html files to make the navbar function
     <nav class="navbar">
         <div class="navbar__container">
             <a href="index.html" id="navbar__logo">Avi Fresher</a>
@@ -93,8 +128,8 @@
                 
             </div>
             <br>
-    <!-- the following tag links it to the javascript file, make sure you add it to the body of every html file -->
+    <!-- the following tag links it to the javascript file, make sure you add it to the body of every html file 
     <script src="app.js"></script>
   </body>
 </html>
->>>>>>> c62b7b58ae0ea2f9ccb6ec7f581907204c583898
+>>>>>>> c62b7b58ae0ea2f9ccb6ec7f581907204c583898 -->
