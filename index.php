@@ -11,8 +11,8 @@
 	$Peanut = (isset($_GET['Peanut']) ? $_GET['Peanut'] : FALSE);
 	$Sesame = (isset($_GET['Sesame']) ? $_GET['Sesame'] : FALSE);
 	$Shellfish = (isset($_GET['Shellfish']) ? $_GET['Shellfish'] : FALSE);
-	$TreeNut = (isset($_GET['TreeNut']) ? $_GET['TreeNut'] : FALSE);
-	$GlutenSensitive = (isset($_GET['GlutenSensitive']) ? $_GET['GlutenSensitive'] : FALSE);
+	$TreeNut = (isset($_GET['Tree_Nut']) ? $_GET['Tree_Nut'] : FALSE);
+	$GlutenSensitive = (isset($_GET['Gluten_Sensitive']) ? $_GET['Gluten_Sensitive'] : FALSE);
 	$Halal = (isset($_GET['Halal']) ? $_GET['Halal'] : FALSE);
 	$Kosher = (isset($_GET['Kosher']) ? $_GET['Kosher'] : FALSE);
 
@@ -39,8 +39,8 @@
 	if($Peanut) $sql .= ' and Peanut != 1';
 	if($Sesame) $sql .= ' and Sesame != 1';
 	if($Shellfish) $sql .= ' and Shellfish != 1';
-	if($TreeNut) $sql .= ' and Tree Nut != 1';
-	if($GlutenSensitive) $sql .= ' and Gluten Sensitive != 1';
+	if($TreeNut) $sql .= ' and Tree_Nut != 1';
+	if($GlutenSensitive) $sql .= ' and Gluten_Sensitive != 1';
 	if($Halal) $sql .= ' and Halal != 0';
 	if($Kosher) $sql .= ' and Kosher != 0';	
 	$sql .= ' ORDER BY ' . $Sort;
@@ -80,8 +80,8 @@
 					(document.getElementById('Fish').value ? "Fish=TRUE&" : "") +
 					(document.getElementById('Peanut').value ? "Peanut=TRUE&" : "") +
 					(document.getElementById('Shellfish').value ? "Shellfish=TRUE&" : "") +
-					(document.getElementById('TreeNut').value ? "TreeNut=TRUE&" : "") +
-					(document.getElementById('GlutenSensitive').value ? "GlutenSensitive=TRUE&" : "") +
+					(document.getElementById('TreeNut').value ? "Tree_Nut=TRUE&" : "") +
+					(document.getElementById('GlutenSensitive').value ? "Gluten_Sensitive=TRUE&" : "") +
 					(document.getElementById('Halal').value ? "Halal=TRUE&" : "") +
 					(document.getElementById('Kosher').value ? "Kosher=TRUE&" : "");
 
@@ -120,11 +120,11 @@
 			<label for="Shellfish">Shellfish:</label>
 			<input type="checkbox" id="Shellfish" name="Shellfish">
 
-			<label for="TreeNut">Tree Nut:</label>
-			<input type="checkbox" id="TreeNut" name="TreeNut">
+			<label for="Tree_Nut">Tree Nut:</label>
+			<input type="checkbox" id="Tree_Nut" name="Tree_Nut">
 
-			<label for="GlutenSensitive">Gluten Sensitive:</label>
-			<input type="checkbox" id="GlutenSensitive" name="GlutenSensitive">
+			<label for="Gluten_Sensitive">Gluten Sensitive:</label>
+			<input type="checkbox" id="Gluten_Sensitive" name="Gluten_Sensitive">
 
 			<label for="Halal">Halal:</label>
 			<input type="checkbox" id="Halal" name="Halal">
