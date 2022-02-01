@@ -11,8 +11,8 @@
 	$Peanut = (isset($_GET['Peanut']) ? $_GET['Peanut'] : FALSE);
 	$Sesame = (isset($_GET['Sesame']) ? $_GET['Sesame'] : FALSE);
 	$Shellfish = (isset($_GET['Shellfish']) ? $_GET['Shellfish'] : FALSE);
-	$TreeNut = (isset($_GET['Tree_Nut']) ? $_GET['Tree_Nut'] : FALSE);
-	$GlutenSensitive = (isset($_GET['Gluten_Sensitive']) ? $_GET['Gluten_Sensitive'] : FALSE);
+	$Tree_Nut = (isset($_GET['Tree_Nut']) ? $_GET['Tree_Nut'] : FALSE);
+	$Gluten_Sensitive = (isset($_GET['Gluten_Sensitive']) ? $_GET['Gluten_Sensitive'] : FALSE);
 	$Halal = (isset($_GET['Halal']) ? $_GET['Halal'] : FALSE);
 	$Kosher = (isset($_GET['Kosher']) ? $_GET['Kosher'] : FALSE);
 
@@ -32,15 +32,15 @@
 	if($Soy) $sql .= ' and Soy != 1';
 	if($Dairy) $sql .= ' and Dairy != 1';
 	if($Wheat) $sql .= ' and Wheat != 1';
-	if($Vegetarian) $sql .= ' and Vegetarian != 1';
-	if($Vegan) $sql .= ' and Vegan != 1';
+	if($Vegetarian) $sql .= ' and Vegetarian != 0';
+	if($Vegan) $sql .= ' and Vegan != 0';
 	if($Egg) $sql .= ' and Egg != 1';
 	if($Fish) $sql .= ' and Fish != 1';
 	if($Peanut) $sql .= ' and Peanut != 1';
 	if($Sesame) $sql .= ' and Sesame != 1';
 	if($Shellfish) $sql .= ' and Shellfish != 1';
-	if($TreeNut) $sql .= ' and Tree_Nut != 1';
-	if($GlutenSensitive) $sql .= ' and Gluten_Sensitive != 1';
+	if($Tree_Nut) $sql .= ' and Tree_Nut != 1';
+	if($Gluten_Sensitive) $sql .= ' and Gluten_Sensitive != 1';
 	if($Halal) $sql .= ' and Halal != 0';
 	if($Kosher) $sql .= ' and Kosher != 0';	
 	$sql .= ' ORDER BY ' . $Sort;
@@ -71,19 +71,21 @@
 		<script language="javascript" type="text/javascript">
 			function makeURL() {
 				var queries = "?" +
-					(document.getElementById('Soy').value ? "Soy=TRUE&" : "") +
-					(document.getElementById('Dairy').value ? "Dairy=TRUE&" : "") +
-					(document.getElementById('Wheat').value ? "Wheat=TRUE&" : "") +
-					(document.getElementById('Vegetarian').value ? "Vegetarian=TRUE&" : "") +
-					(document.getElementById('Vegan').value ? "Vegan=TRUE&" : "") +
-					(document.getElementById('Egg').value ? "Egg=TRUE&" : "") +
-					(document.getElementById('Fish').value ? "Fish=TRUE&" : "") +
-					(document.getElementById('Peanut').value ? "Peanut=TRUE&" : "") +
-					(document.getElementById('Shellfish').value ? "Shellfish=TRUE&" : "") +
-					(document.getElementById('TreeNut').value ? "Tree_Nut=TRUE&" : "") +
-					(document.getElementById('GlutenSensitive').value ? "Gluten_Sensitive=TRUE&" : "") +
-					(document.getElementById('Halal').value ? "Halal=TRUE&" : "") +
-					(document.getElementById('Kosher').value ? "Kosher=TRUE&" : "");
+					(document.getElementById('Soy').value ? "Soy=on&" : "") +
+					(document.getElementById('Dairy').value ? "Dairy=on&" : "") +
+					(document.getElementById('Wheat').value ? "Wheat=on&" : "") +
+					(document.getElementById('Vegetarian').value ? "Vegetarian=on&" : "") +
+					(document.getElementById('Vegan').value ? "Vegan=on&" : "") +
+					(document.getElementById('Egg').value ? "Egg=on&" : "") +
+					(document.getElementById('Fish').value ? "Fish=on&" : "") +
+					(document.getElementById('Peanut').value ? "Peanut=on&" : "") +
+					(document.getElementById('Shellfish').value ? "Shellfish=on&" : "") +
+					(document.getElementById('TreeNut').value ? "Tree_Nut=on&" : "") +
+					(document.getElementById('GlutenSensitive').value ? "Gluten_Sensitive=on&" : "") +
+					(document.getElementById('Halal').value ? "Halal=on&" : "") +
+					(document.getElementById('Kosher').value ? "Kosher=on&" : "") + 
+
+					"Sort=" + (document.getElemenyById('Sort')).value;
 
 				location.href = "localhost/AVIFresher/index.php" + queries;
 
@@ -94,43 +96,59 @@
 		<form onSubmit="return makeURL();">
 
 			<label for="Soy">Soy:</label>
-			<input type="checkbox" id="Soy" name="Soy">
+			<input type="checkbox" id="Soy" name="Soy" <?php if($Soy) {echo "checked='checked'";} ?>>
 
 			<label for="Dairy">Dairy:</label>
-			<input type="checkbox" id="Dairy" name="Dairy">
+			<input type="checkbox" id="Dairy" name="Dairy" <?php if($Dairy) {echo "checked='checked'";} ?>>
 
 			<label for="Wheat">Wheat:</label>
-			<input type="checkbox" id="Wheat" name="Wheat">
+			<input type="checkbox" id="Wheat" name="Wheat" <?php if($Wheat) {echo "checked='checked'";} ?>>
 
 			<label for="Vegetarian">Vegetarian:</label>
-			<input type="checkbox" id="Vegetarian" name="Vegetarian">
+			<input type="checkbox" id="Vegetarian" name="Vegetarian" <?php if($Vegetarian) {echo "checked='checked'";} ?>>
 
 			<label for="Vegan">Vegan:</label>
-			<input type="checkbox" id="Vegan" name="Vegan">
+			<input type="checkbox" id="Vegan" name="Vegan" <?php if($Vegan) {echo "checked='checked'";} ?>>
 
 			<label for="Egg">Egg:</label>
-			<input type="checkbox" id="Egg" name="Egg">
+			<input type="checkbox" id="Egg" name="Egg" <?php if($Egg) {echo "checked='checked'";} ?>>
 
 			<label for="Fish">Fish:</label>
-			<input type="checkbox" id="Fish" name="Fish">
+			<input type="checkbox" id="Fish" name="Fish" <?php if($Fish) {echo "checked='checked'";} ?>>
 
 			<label for="Peanut">Peanut:</label>
-			<input type="checkbox" id="Peanut" name="Peanut">
+			<input type="checkbox" id="Peanut" name="Peanut" <?php if($Peanut) {echo "checked='checked'";} ?>>
 
 			<label for="Shellfish">Shellfish:</label>
-			<input type="checkbox" id="Shellfish" name="Shellfish">
+			<input type="checkbox" id="Shellfish" name="Shellfish" <?php if($Shellfish) {echo "checked='checked'";} ?>>
 
 			<label for="Tree_Nut">Tree Nut:</label>
-			<input type="checkbox" id="Tree_Nut" name="Tree_Nut">
+			<input type="checkbox" id="Tree_Nut" name="Tree_Nut" <?php if($Tree_Nut) {echo "checked='checked'";} ?>>
 
 			<label for="Gluten_Sensitive">Gluten Sensitive:</label>
-			<input type="checkbox" id="Gluten_Sensitive" name="Gluten_Sensitive">
+			<input type="checkbox" id="Gluten_Sensitive" name="Gluten_Sensitive" <?php if($Gluten_Sensitive) {echo "checked='checked'";} ?>>
 
 			<label for="Halal">Halal:</label>
-			<input type="checkbox" id="Halal" name="Halal">
+			<input type="checkbox" id="Halal" name="Halal" <?php if($Halal) {echo "checked='checked'";} ?>>
 
 			<label for="Kosher">Kosher:</label>
-			<input type="checkbox" id="Kosher" name="Kosher">
+			<input type="checkbox" id="Kosher" name="Kosher" <?php if($Kosher) {echo "checked='checked'";} ?>>
+
+			<label for="Sort">Sort by:</label>
+			<select name = "Sort">
+				<option value="Name" <?php if($Sort == "Name") {echo "selected";} ?>>Name</option>
+				<option value="Calories" <?php if($Sort == "Calories") {echo "selected";} ?>>Calories</option>
+				<option value="Total_Fat" <?php if($Sort == "Total_Fat") {echo "selected";} ?>>Total Fat</option>
+				<option value="Saturated_Fat" <?php if($Sort == "Saturated_Fat") {echo "selected";} ?>>Saturated Fat</option>
+				<option value="Trans_Fat" <?php if($Sort == "Trans_Fat") {echo "selected";} ?>>Trans Fat</option>
+				<option value="Cholesterol" <?php if($Sort == "Cholestrol") {echo "selected";} ?>>Cholesterol</option>
+				<option value="Sodium" <?php if($Sort == "Sodium") {echo "selected";} ?>>Sodium</option>
+				<option value="Total_Carbohydrate" <?php if($Sort == "Total_Carbohydrate") {echo "selected";} ?>>Total Carbohydrate</option>
+				<option value="Dietary_Fiber" <?php if($Sort == "Dietary_Fiber") {echo "selected";} ?>>Dietary Fiber</option>
+				<option value="Total_Sugar" <?php if($Sort == "Total_Sugar") {echo "selected";} ?>>Total Sugar</option>
+				<option value="Added_Sugar" <?php if($Sort == "Added_Sugar") {echo "selected";} ?>>Added Sugar</option>
+				<option value="Protein" <?php if($Sort == "Protein") {echo "selected";} ?>>Protein</option>
+			</select>
 
 			<input type="submit" value="Go">
 		</form>
