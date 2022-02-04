@@ -212,6 +212,8 @@ img{
 
 .menu {
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
   margin: 0px;
 }
 
@@ -270,6 +272,6 @@ input[type=text]:hover {
 table {
   margin-left: auto;
   margin-right: auto;
-  width: 10%;
-  height: 10%;
+  /*width: 10%;
+  height: 10%;*/
 }
