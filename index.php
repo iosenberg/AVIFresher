@@ -39,7 +39,7 @@
             <p class="normal"> <a href="menu.html" class="link">View</a> today's dining hall menus</p>
             <p class="normal"> <a href = "/" class="link">Rate</a> the food</p>
             <p class="normal"> <a href="contact.html" class="link">Contact</a> Us</p>
-            </div>
+
             <div class="main__image--container">
                 <img src="images/pic1.svg" alt="NOT FOUND" id="main__img">
                 <br>
