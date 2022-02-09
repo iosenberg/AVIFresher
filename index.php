@@ -46,8 +46,8 @@
                 <br>
                 <br>
                 <a href="https://www.oberlin.edu/" target="_blank"><img class="oberlin__img" src="images/pic2.png" alt="NOT FOUND"></a>
-                
             </div>
+
             <br>
     <!-- the following tag links it to the javascript file, make sure you add it to the body of every html file -->
     <script src="app.js"></script>
