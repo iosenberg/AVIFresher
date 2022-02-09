@@ -190,24 +190,84 @@
 
 	<div>
 		<?php foreach($food_items as $item){ ?>
-			<p class="menu"> <?php echo htmlspecialchars($item['Name']); ?>
+			<!--Ratings and name of dish-->
 			<table class="center">
-				<tr>
-					<?php if($item['Soy']) {echo '<img src="images/Soy.png" alt="Contains soy" id="main__img"></th>';} ?>
-					<?php if($item['Dairy']) {echo '<img src="images/Milk.png" alt="Contains milk" id="main__img"></th>';} ?>
-					<?php if($item['Wheat']) {echo '<img src="images/Wheat.png" alt="Contains wheat" id="main__img"></th>';} ?>
-					<?php if($item['Vegetarian']) {echo '<img src="images/Vegetarian.png" alt="Vegetarian" id="main__img"></th>';} ?>
-					<?php if($item['Vegan']) {echo '<img src="images/Vegan.png" alt="Vegan" id="main__img"></th>';} ?>
-					<?php if($item['Egg']) {echo '<img src="images/Egg.png" alt="Contains egg" id="main__img"></th>';} ?>
-					<?php if($item['Fish']) {echo '<img src="images/Fish.png" alt="Contains fish" id="main__img"></th>';} ?>
-					<?php if($item['Peanut']) {echo '<img src="images/Peanut.png" alt="Contains peanuts" id="main__img"></th>';} ?>
-					<?php if($item['Shellfish']) {echo '<img src="images/Shellfish.png" alt="Contains shellfish" id="main__img"></th>';} ?>
-					<?php if($item['Tree_Nut']) {echo '<img src="images/Tree_Nut.png" alt="Contains tree nuts" id="main__img"></th>';} ?>
-					<?php if($item['Gluten_Sensitive']) {echo '<img src="images/Gluten_Sensitive.png" alt="Contains gluten" id="main__img"></th>';} ?>
-					<?php if($item['Halal']) {echo '<img src="images/Halal.png" alt="Halal" id="main__img"></th>';} ?>
-					<?php if($item['Kosher']) {echo '<img src="images/Kosher.png" alt="Kosher" id="main__img"></th>';} ?>
+                <tr>
+                	<td><img src="images/up-arrow.png" width="30" alt="Upvote" id="main__img"></td>
+                  	<td><img src="images/down-arrow.png" width="30" 
+                    height="30" alt="Downvote" id="main__img"></td>
+					<td><p class="menu"> <?php echo htmlspecialchars($item['Name']); ?></p></td>
 				</tr>
 			</table>
+
+			<!--Allergen tags-->
+			<table class="center">
+				<tr>
+					<?php if($item['Soy']) {echo '<img src="images/Soy.png" width="40" height="40" alt="Contains soy" id="main__img"></th>';} ?>
+					<?php if($item['Dairy']) {echo '<img src="images/Milk.png" width="40" height="40" alt="Contains milk" id="main__img"></th>';} ?>
+					<?php if($item['Wheat']) {echo '<img src="images/Wheat.png" width="40" height="40" alt="Contains wheat" id="main__img"></th>';} ?>
+					<?php if($item['Vegetarian']) {echo '<img src="images/Vegetarian.png" width="40" height="40" alt="Vegetarian" id="main__img"></th>';} ?>
+					<?php if($item['Vegan']) {echo '<img src="images/Vegan.png" width="40" height="40" alt="Vegan" id="main__img"></th>';} ?>
+					<?php if($item['Egg']) {echo '<img src="images/Egg.png" width="40" height="40" alt="Contains egg" id="main__img"></th>';} ?>
+					<?php if($item['Fish']) {echo '<img src="images/Fish.png" width="40" height="40" alt="Contains fish" id="main__img"></th>';} ?>
+					<?php if($item['Peanut']) {echo '<img src="images/Peanut.png" width="40" height="40" alt="Contains peanuts" id="main__img"></th>';} ?>
+					<?php if($item['Shellfish']) {echo '<img src="images/Shellfish.png" width="40" height="40" alt="Contains shellfish" id="main__img"></th>';} ?>
+					<?php if($item['Tree_Nut']) {echo '<img src="images/Tree_Nut.png" width="40" height="40" alt="Contains tree nuts" id="main__img"></th>';} ?>
+					<?php if($item['Gluten_Sensitive']) {echo '<img src="images/Gluten_Sensitive.png" width="40" height="40" alt="Contains gluten" id="main__img"></th>';} ?>
+					<?php if($item['Halal']) {echo '<img src="images/Halal.png" alt="Halal" width="40" height="40" id="main__img"></th>';} ?>
+					<?php if($item['Kosher']) {echo '<img src="images/Kosher.png" width="40" height="40" alt="Kosher" id="main__img"></th>';} ?>
+				</tr>
+			</table>
+
+			<!--Nutritional information-->
+			<button type="button" class="collapsible">Nutritional Information</button>
+            <div class="content">
+              <table border=1 frame=void rules=rows style="width:45px">
+                <tr>
+                  <td><p>Calories</p></td>
+                  <td><p><?php echo($item['Calories']);?></p></td>
+                </tr>
+                <tr>
+                  <td><p>Total Fat</p></td>
+                  <td><p><?php echo($item['Total_Fat']);?>g</p></td>
+                </tr>
+                <tr>
+                  <td><p>Saturated Fat</p></td>
+                  <td><p><?php echo($item['Saturated_Fat']);?>g</p></td>
+                </tr>
+                <tr>
+                  <td><p>Trans Fat</p></td>
+                  <td><p><?php echo($item['Trans_Fat']);?>g</p></td>
+                </tr>
+                <tr>
+                  <td><p>Cholesterol</p></td>
+                  <td><p><?php echo($item['Cholesterol']);?>g</p></td>
+                </tr>
+                <tr>
+                  <td><p>Sodium</p></td>
+                  <td><p><?php echo($item['Sodium']);?>mg</p></td>
+                </tr>
+                <tr>
+                  <td><p>Total Carbohydrates</p></td>
+                  <td><p><?php echo($item['Total_Carbohydrate']);?>g</p></td>
+                </tr>
+                <tr>
+                  <td><p>Dietary Fiber</p></td>
+                  <td><p><?php echo($item['Dietary_Fiber']);?>g</p></td>
+                </tr>
+                <tr>
+                  <td><p>Total Sugar</p></td>
+                  <td><p><?php echo($item['Total_Sugar']);?>g</p></td>
+                </tr>
+                <tr>
+                  <td><p>Added Sugar</p></td>
+                  <td><p><?php echo($item['Added_Sugar']);?>g</p></td>
+                </tr>
+                <tr>
+                  <td><p>Protein</p></td>
+                  <td><p><?php echo($item['Protein']);?>g</p></td>
+                </tr>
+              </table>
 		<?php } ?>
 	</div>
 </body>
