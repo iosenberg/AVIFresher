@@ -10,7 +10,7 @@
     <!-- you can copy the nav tag as is over to other html files to make the navbar function -->
     <nav class="navbar">
         <div class="navbar__container">
-            <a href="index.html" id="navbar__logo">Avi Fresher</a>
+            <a href="index.php" id="navbar__logo">Avi Fresher</a>
             <div class="navbar__toggle" id="mobile-menu">
                 <span class="bar"></span> 
                 <span class="bar"></span>
@@ -36,7 +36,7 @@
             <h1 class="normal">WELCOME!</h1>
             <h2 class="normal">We strive to improve the quality of life at Oberlin.</h2>
 
-            <p class="normal"> <a href="menu.html" class="link">View</a> today's dining hall menus</p>
+            <p class="normal"> <a href="menu.php" class="link">View</a> today's dining hall menus</p>
             <p class="normal"> <a href = "/" class="link">Rate</a> the food</p>
             <p class="normal"> <a href="contact.html" class="link">Contact</a> Us</p>
 

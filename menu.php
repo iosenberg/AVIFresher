@@ -72,7 +72,7 @@
 	<!-- you can copy the nav tag as is over to other html files to make the navbar function -->
     <nav class="navbar">
         <div class="navbar__container">
-            <a href="index.html" id="navbar__logo">Avi Fresher</a>
+            <a href="index.php" id="navbar__logo">Avi Fresher</a>
             <div class="navbar__toggle" id="mobile-menu">
                 <span class="bar"></span> 
                 <span class="bar"></span>
@@ -80,11 +80,11 @@
             </div> 
             <ul class="navbar__menu">
                 <li class="navbar__item"> 
-                    <a href="index.html" class="navbar__links">Home</a>
+                    <a href="index.php" class="navbar__links">Home</a>
                 </li>
                 
                 <li class="navbar__item"> 
-                    <a href="menu.html" class="navbar__links">Menu</a>  
+                    <a href="menu.php" class="navbar__links">Menu</a>  
                 </li>
                 <li class="navbar__item"> 
                     <a href="about.html" class="navbar__links">About Us</a>
@@ -268,7 +268,11 @@
                   <td><p><?php echo($item['Protein']);?>g</p></td>
                 </tr>
               </table>
+          </div>
 		<?php } ?>
 	</div>
+
+	<!-- the following tag links it to the javascript file, make sure you add it to the body of every html file -->
+    <script src="app.js"></script>
 </body>
 </html>
