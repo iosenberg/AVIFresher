@@ -19,8 +19,58 @@
 	//Read sorting method from url, default to name?
 	$Sort = (isset($_GET['Sort']) ? $_GET['Sort'] : 'Name');
 
+	//List of meal strings
+	$meals = array(
+		"monday_breakfast",
+		"monday_lunch",
+		"monday_dinner",
+		"tuesday_breakfast",
+		"tuesday_lunch",
+		"tuesday_dinner",
+		"wednesday_breakfast",
+		"wednesday_lunch",
+		"wednesday_dinner",
+		"thursday_breakfast",
+		"thursday_lunch",
+		"thursday_dinner",
+		"friday_breakfast",
+		"friday_lunch",
+		"friday_dinner",
+		"saturday_breakfast",
+		"saturday_lunch",
+		"saturday_dinner",
+		"sunday_breakfast",
+		"sunday_lunch",
+		"sunday_dinner"
+	);
+
+	//Set $Meal to be the string of the meal
+	if(isset($_GET['Meal'])) {$Meal = $_GET['Meal'];}
+	else {
+		$Date = date("l");
+		if($Date == "Monday") {$Meal = 0;}
+		if($Date == "Tuesday") {$Meal = 3;}
+		if($Date == "Wednesday") {$Meal = 6;}
+		if($Date == "Thursday") {$Meal = 9;}
+		if($Date == "Friday") {$Meal = 12;}
+		if($Date == "Saturday") {$Meal = 15;}
+		if($Date == "Sunday") {$Meal = 18;}
+
+		$Time = (int) date("H");
+		//If time is after noon, switch to lunch
+		if($Time > 12) $Meal+=1;
+		//If time is after 5PM, switch to dinner
+		if($Time > 17) $Meal+=1;
+		//If time is after 8PM, switch to breakfast of the next day
+		if($Time > 20) $Meal = ($Meal + 1) % 21;
+
+		//Sets $Day to the string value of $Day
+		$Meal = $meals[$Meal];
+	}
+
 	//Connect to database
-	$conn = mysqli_connect('localhost', 'AVIFresher', 'AVIIFresh42069', 'stevenson');
+	//$conn = mysqli_connect('localhost', 'AVIFresher', 'AVIIFresh42069', 'stevenson');
+	$conn = mysqli_connect("34.136.168.16", "testingdb1234", "436E84CC77", "avi");
 
 	//Check connection
 	if(!$conn) {
@@ -28,7 +78,7 @@
 	}
 
 	//Write query for items
-	$sql = 'SELECT * FROM food_items WHERE calories != 0';
+	$sql = 'SELECT * FROM food_items WHERE ' . $Meal . ' != 0';
 	if($Soy) $sql .= ' and Soy != 1';
 	if($Dairy) $sql .= ' and Dairy != 1';
 	if($Wheat) $sql .= ' and Wheat != 1';
@@ -166,8 +216,10 @@
 			<label for="Kosher">Kosher:</label>
 			<input type="checkbox" id="Kosher" name="Kosher" <?php if($Kosher) {echo "checked='checked'";} ?>>
 
+			<br><br>
+
 			<label for="Sort">Sort by:</label>
-			<select name = "Sort">
+			<select name="Sort">
 				<option value="Name" <?php if($Sort == "Name") {echo "selected";} ?>>Name</option>
 				<option value="Calories" <?php if($Sort == "Calories") {echo "selected";} ?>>Calories</option>
 				<option value="Total_Fat" <?php if($Sort == "Total_Fat") {echo "selected";} ?>>Total Fat</option>
@@ -182,6 +234,32 @@
 				<option value="Protein" <?php if($Sort == "Protein") {echo "selected";} ?>>Protein</option>
 			</select>
 
+			<br>
+			<label for="Meal">Meal:</label>
+			<select name="Meal">
+				<option value="monday_breakfast" <?php if($Meal == "monday_breakfast") {echo "selected";} ?>>Monday Breakfast</option>
+				<option value="monday_lunch" <?php if($Meal == "monday_lunch") {echo "selected";} ?>>Monday Lunch</option>
+				<option value="monday_dinner" <?php if($Meal == "monday_dinner") {echo "selected";} ?>>Monday Dinner</option>
+				<option value="tuesday_breakfast" <?php if($Meal == "tuesday_breakfast") {echo "selected";} ?>>Tuesday Breakfast</option>
+				<option value="tuesday_lunch" <?php if($Meal == "tuesday_lunch") {echo "selected";} ?>>Tuesday Lunch</option>
+				<option value="tuesday_dinner" <?php if($Meal == "tuesday_dinner") {echo "selected";} ?>>Tuesday Dinner</option>
+				<option value="wednesday_breakfast" <?php if($Meal == "wednesday_breakfast") {echo "selected";} ?>>Wednesday Breakfast</option>
+				<option value="wednesday_lunch" <?php if($Meal == "wednesday_lunch") {echo "selected";} ?>>Wednesday Lunch</option>
+				<option value="wednesday_dinner" <?php if($Meal == "wednesday_dinner") {echo "selected";} ?>>Wednesday Dinner</option>
+				<option value="thursday_breakfast" <?php if($Meal == "thursday_breakfast") {echo "selected";} ?>>Thursday Breakfast</option>
+				<option value="thursday_lunch" <?php if($Meal == "thursday_lunch") {echo "selected";} ?>>Thursday Lunch</option>
+				<option value="thursday_dinner" <?php if($Meal == "thursday_dinner") {echo "selected";} ?>>Thursday Dinner</option>
+				<option value="friday_breakfast" <?php if($Meal == "friday_breakfast") {echo "selected";} ?>>Friday Breakfast</option>
+				<option value="friday_lunch" <?php if($Meal == "friday_lunch") {echo "selected";} ?>>Friday Lunch</option>
+				<option value="friday_dinner" <?php if($Meal == "friday_dinner") {echo "selected";} ?>>Friday Dinner</option>
+				<option value="saturday_breakfast" <?php if($Meal == "saturday_breakfast") {echo "selected";} ?>>Saturday Breakfast</option>
+				<option value="saturday_lunch" <?php if($Meal == "saturday_lunch") {echo "selected";} ?>>Saturday Lunch</option>
+				<option value="saturday_dinner" <?php if($Meal == "saturday_dinner") {echo "selected";} ?>>Saturday Dinner</option>
+				<option value="sunday_breakfast" <?php if($Meal == "sunday_breakfast") {echo "selected";} ?>>Sunday Breakfast</option>
+				<option value="sunday_lunch" <?php if($Meal == "sunday_lunch") {echo "selected";} ?>>Sunday Lunch</option>
+				<option value="sunday_dinner" <?php if($Meal == "sunday_dinner") {echo "selected";} ?>>Sunday Dinner</option>
+			</select>
+
 			<input type="submit" value="Go">
 		</form>
 	</div>
@@ -189,33 +267,27 @@
 	<h1>MENU</h1>
 
 	<div>
+		<?php echo($Meal); ?>
 		<?php foreach($food_items as $item){ ?>
-			<!--Ratings and name of dish-->
-			<table class="center">
-                <tr>
-                	<td><img src="images/up-arrow.png" width="30" alt="Upvote" id="main__img"></td>
-                  	<td><img src="images/down-arrow.png" width="30" 
-                    height="30" alt="Downvote" id="main__img"></td>
-					<td><p class="menu"> <?php echo htmlspecialchars($item['Name']); ?></p></td>
-				</tr>
-			</table>
+			<!-- Name of each dish -->
+			<p class="menu"> <?php echo htmlspecialchars($item['Name']); ?></p>
 
 			<!--Allergen tags-->
 			<table class="center">
 				<tr>
-					<?php if($item['Soy']) {echo '<img src="images/Soy.png" width="40" height="40" alt="Contains soy" id="main__img"></th>';} ?>
-					<?php if($item['Dairy']) {echo '<img src="images/Milk.png" width="40" height="40" alt="Contains milk" id="main__img"></th>';} ?>
-					<?php if($item['Wheat']) {echo '<img src="images/Wheat.png" width="40" height="40" alt="Contains wheat" id="main__img"></th>';} ?>
-					<?php if($item['Vegetarian']) {echo '<img src="images/Vegetarian.png" width="40" height="40" alt="Vegetarian" id="main__img"></th>';} ?>
-					<?php if($item['Vegan']) {echo '<img src="images/Vegan.png" width="40" height="40" alt="Vegan" id="main__img"></th>';} ?>
-					<?php if($item['Egg']) {echo '<img src="images/Egg.png" width="40" height="40" alt="Contains egg" id="main__img"></th>';} ?>
-					<?php if($item['Fish']) {echo '<img src="images/Fish.png" width="40" height="40" alt="Contains fish" id="main__img"></th>';} ?>
-					<?php if($item['Peanut']) {echo '<img src="images/Peanut.png" width="40" height="40" alt="Contains peanuts" id="main__img"></th>';} ?>
-					<?php if($item['Shellfish']) {echo '<img src="images/Shellfish.png" width="40" height="40" alt="Contains shellfish" id="main__img"></th>';} ?>
-					<?php if($item['Tree_Nut']) {echo '<img src="images/Tree_Nut.png" width="40" height="40" alt="Contains tree nuts" id="main__img"></th>';} ?>
-					<?php if($item['Gluten_Sensitive']) {echo '<img src="images/Gluten_Sensitive.png" width="40" height="40" alt="Contains gluten" id="main__img"></th>';} ?>
-					<?php if($item['Halal']) {echo '<img src="images/Halal.png" alt="Halal" width="40" height="40" id="main__img"></th>';} ?>
-					<?php if($item['Kosher']) {echo '<img src="images/Kosher.png" width="40" height="40" alt="Kosher" id="main__img"></th>';} ?>
+					<?php if($item['Soy']) {echo '<th><img src="images/Soy.png" width="40" height="40" alt="Contains soy" id="main__img"></th>';} ?>
+					<?php if($item['Dairy']) {echo '<th><img src="images/Milk.png" width="40" height="40" alt="Contains milk" id="main__img"></th>';} ?>
+					<?php if($item['Wheat']) {echo '<th><img src="images/Wheat.png" width="40" height="40" alt="Contains wheat" id="main__img"></th>';} ?>
+					<?php if($item['Vegetarian']) {echo '<th><img src="images/Vegetarian.png" width="40" height="40" alt="Vegetarian" id="main__img"></th>';} ?>
+					<?php if($item['Vegan']) {echo '<th><img src="images/Vegan.png" width="40" height="40" alt="Vegan" id="main__img"></th>';} ?>
+					<?php if($item['Egg']) {echo '<th><img src="images/Egg.png" width="40" height="40" alt="Contains egg" id="main__img"></th>';} ?>
+					<?php if($item['Fish']) {echo '<th><img src="images/Fish.png" width="40" height="40" alt="Contains fish" id="main__img"></th>';} ?>
+					<?php if($item['Peanut']) {echo '<th><img src="images/Peanut.png" width="40" height="40" alt="Contains peanuts" id="main__img"></th>';} ?>
+					<?php if($item['Shellfish']) {echo '<th><img src="images/Shellfish.png" width="40" height="40" alt="Contains shellfish" id="main__img"></th>';} ?>
+					<?php if($item['Tree_Nut']) {echo '<th><img src="images/Tree_Nut.png" width="40" height="40" alt="Contains tree nuts" id="main__img"></th>';} ?>
+					<?php if($item['Gluten_Sensitive']) {echo '<th><img src="images/Gluten_Sensitive.png" width="40" height="40" alt="Contains gluten" id="main__img"></th>';} ?>
+					<?php if($item['Halal']) {echo '<th><img src="images/Halal.png" alt="Halal" width="40" height="40" id="main__img"></th>';} ?>
+					<?php if($item['Kosher']) {echo '<th><img src="images/Kosher.png" width="40" height="40" alt="Kosher" id="main__img"></th>';} ?>
 				</tr>
 			</table>
 
