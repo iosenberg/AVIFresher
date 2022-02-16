@@ -70,6 +70,8 @@
 	//Set $Meal to be the string of the meal
 	if(isset($_GET['Meal'])) {$Meal = $_GET['Meal'];}
 	else {
+		date_default_timezone_set('America/New_York');
+
 		$Date = date("l");
 		if($Date == "Monday") {$Meal = 0;}
 		if($Date == "Tuesday") {$Meal = 3;}
@@ -78,6 +80,7 @@
 		if($Date == "Friday") {$Meal = 12;}
 		if($Date == "Saturday") {$Meal = 15;}
 		if($Date == "Sunday") {$Meal = 18;}
+
 
 		$Time = (int) date("H");
 		//If time is after noon, switch to lunch
