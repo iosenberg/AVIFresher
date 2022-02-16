@@ -1,26 +1,6 @@
 <?php
-
-	//Read booleans from url, default to false
-	$Soy = (isset($_GET['Soy']) ? $_GET['Soy'] : FALSE);
-	$Dairy = (isset($_GET['Dairy']) ? $_GET['Dairy'] : FALSE);
-	$Wheat = (isset($_GET['Wheat']) ? $_GET['Wheat'] : FALSE);
-	$Vegetarian = (isset($_GET['Vegetarian']) ? $_GET['Vegetarian'] : FALSE);
-	$Vegan = (isset($_GET['Vegan']) ? $_GET['Vegan'] : FALSE);
-	$Egg = (isset($_GET['Egg']) ? $_GET['Egg'] : FALSE);
-	$Fish = (isset($_GET['Fish']) ? $_GET['Fish'] : FALSE);
-	$Peanut = (isset($_GET['Peanut']) ? $_GET['Peanut'] : FALSE);
-	$Sesame = (isset($_GET['Sesame']) ? $_GET['Sesame'] : FALSE);
-	$Shellfish = (isset($_GET['Shellfish']) ? $_GET['Shellfish'] : FALSE);
-	$Tree_Nut = (isset($_GET['Tree_Nut']) ? $_GET['Tree_Nut'] : FALSE);
-	$Gluten_Sensitive = (isset($_GET['Gluten_Sensitive']) ? $_GET['Gluten_Sensitive'] : FALSE);
-	$Halal = (isset($_GET['Halal']) ? $_GET['Halal'] : FALSE);
-	$Kosher = (isset($_GET['Kosher']) ? $_GET['Kosher'] : FALSE);
-
-	//Read sorting method from url, default to name?
-	$Sort = (isset($_GET['Sort']) ? $_GET['Sort'] : 'Name');
-
-	//List of meal strings
-	$meals = array(
+	//List of meal strings in sql
+	$mealsSQL = array(
 		"monday_breakfast",
 		"monday_lunch",
 		"monday_dinner",
@@ -43,6 +23,49 @@
 		"sunday_lunch",
 		"sunday_dinner"
 	);
+	//List of meal strings as they should be printed
+	$mealsStrings = array(
+		"MONDAY BREAKFAST",
+		"MONDAY LUNCH",
+		"MONDAY DINNER",
+		"TUESDAY BREAKFAST",
+		"TUESDAY LUNCH",
+		"TUESDAY DINNER",
+		"WEDNESDAY BREAKFAST",
+		"WEDNESDAY LUNCH",
+		"WEDNESDAY DINNER",
+		"THURSDAY BREAKFAST",
+		"THURSDAY LUNCH",
+		"THURSDAY DINNER",
+		"FRIDAY BREAKFAST",
+		"FRIDAY LUNCH",
+		"FRIDAY DINNER",
+		"SATURDAY BREAKFAST",
+		"SATURDAY LUNCH",
+		"SATURDAY DINNER",
+		"SUNDAY BREAKFAST",
+		"SUNDAY LUNCH",
+		"SUNDAY DINNER"
+	);
+
+	//Read booleans from url, default to false
+	$Soy = (isset($_GET['Soy']) ? $_GET['Soy'] : FALSE);
+	$Dairy = (isset($_GET['Dairy']) ? $_GET['Dairy'] : FALSE);
+	$Wheat = (isset($_GET['Wheat']) ? $_GET['Wheat'] : FALSE);
+	$Vegetarian = (isset($_GET['Vegetarian']) ? $_GET['Vegetarian'] : FALSE);
+	$Vegan = (isset($_GET['Vegan']) ? $_GET['Vegan'] : FALSE);
+	$Egg = (isset($_GET['Egg']) ? $_GET['Egg'] : FALSE);
+	$Fish = (isset($_GET['Fish']) ? $_GET['Fish'] : FALSE);
+	$Peanut = (isset($_GET['Peanut']) ? $_GET['Peanut'] : FALSE);
+	$Sesame = (isset($_GET['Sesame']) ? $_GET['Sesame'] : FALSE);
+	$Shellfish = (isset($_GET['Shellfish']) ? $_GET['Shellfish'] : FALSE);
+	$Tree_Nut = (isset($_GET['Tree_Nut']) ? $_GET['Tree_Nut'] : FALSE);
+	$Gluten_Sensitive = (isset($_GET['Gluten_Sensitive']) ? $_GET['Gluten_Sensitive'] : FALSE);
+	$Halal = (isset($_GET['Halal']) ? $_GET['Halal'] : FALSE);
+	$Kosher = (isset($_GET['Kosher']) ? $_GET['Kosher'] : FALSE);
+
+	//Read sorting method from url, default to name?
+	$Sort = (isset($_GET['Sort']) ? $_GET['Sort'] : 'Name');
 
 	//Set $Meal to be the string of the meal
 	if(isset($_GET['Meal'])) {$Meal = $_GET['Meal'];}
@@ -63,14 +86,11 @@
 		if($Time > 17) $Meal+=1;
 		//If time is after 8PM, switch to breakfast of the next day
 		if($Time > 20) $Meal = ($Meal + 1) % 21;
-
-		//Sets $Day to the string value of $Day
-		$Meal = $meals[$Meal];
 	}
 
 	//Connect to database
 	//$conn = mysqli_connect('localhost', 'AVIFresher', 'AVIIFresh42069', 'stevenson');
-	$conn = mysqli_connect("34.136.168.16", "testingdb1234", "436E84CC77", "avi");
+	$conn = mysqli_connect("35.232.237.179", "avifresher", "avifreshsucks42069", "avifresher");
 
 	//Check connection
 	if(!$conn) {
@@ -78,7 +98,7 @@
 	}
 
 	//Write query for items
-	$sql = 'SELECT * FROM food_items WHERE ' . $Meal . ' != 0';
+	$sql = 'SELECT * FROM stevenson WHERE ' . $mealsSQL[$Meal] . ' != 0';
 	if($Soy) $sql .= ' and Soy != 1';
 	if($Dairy) $sql .= ' and Dairy != 1';
 	if($Wheat) $sql .= ' and Wheat != 1';
@@ -93,7 +113,7 @@
 	if($Gluten_Sensitive) $sql .= ' and Gluten_Sensitive != 1';
 	if($Halal) $sql .= ' and Halal != 0';
 	if($Kosher) $sql .= ' and Kosher != 0';	
-	$sql .= ' ORDER BY ' . $Sort;
+	$sql .= ' ORDER BY station, ' . $Sort . ($Sort != 'name' ? " DESC" : "");
 	
 	//Make query and get result
 	$result = mysqli_query($conn, $sql);
@@ -130,7 +150,7 @@
             </div> 
             <ul class="navbar__menu">
                 <li class="navbar__item"> 
-                    <a href="index.php" class="navbar__links">Home</a>
+                    <a href="index.html" class="navbar__links">Home</a>
                 </li>
                 
                 <li class="navbar__item"> 
@@ -237,38 +257,44 @@
 			<br>
 			<label for="Meal">Meal:</label>
 			<select name="Meal">
-				<option value="monday_breakfast" <?php if($Meal == "monday_breakfast") {echo "selected";} ?>>Monday Breakfast</option>
-				<option value="monday_lunch" <?php if($Meal == "monday_lunch") {echo "selected";} ?>>Monday Lunch</option>
-				<option value="monday_dinner" <?php if($Meal == "monday_dinner") {echo "selected";} ?>>Monday Dinner</option>
-				<option value="tuesday_breakfast" <?php if($Meal == "tuesday_breakfast") {echo "selected";} ?>>Tuesday Breakfast</option>
-				<option value="tuesday_lunch" <?php if($Meal == "tuesday_lunch") {echo "selected";} ?>>Tuesday Lunch</option>
-				<option value="tuesday_dinner" <?php if($Meal == "tuesday_dinner") {echo "selected";} ?>>Tuesday Dinner</option>
-				<option value="wednesday_breakfast" <?php if($Meal == "wednesday_breakfast") {echo "selected";} ?>>Wednesday Breakfast</option>
-				<option value="wednesday_lunch" <?php if($Meal == "wednesday_lunch") {echo "selected";} ?>>Wednesday Lunch</option>
-				<option value="wednesday_dinner" <?php if($Meal == "wednesday_dinner") {echo "selected";} ?>>Wednesday Dinner</option>
-				<option value="thursday_breakfast" <?php if($Meal == "thursday_breakfast") {echo "selected";} ?>>Thursday Breakfast</option>
-				<option value="thursday_lunch" <?php if($Meal == "thursday_lunch") {echo "selected";} ?>>Thursday Lunch</option>
-				<option value="thursday_dinner" <?php if($Meal == "thursday_dinner") {echo "selected";} ?>>Thursday Dinner</option>
-				<option value="friday_breakfast" <?php if($Meal == "friday_breakfast") {echo "selected";} ?>>Friday Breakfast</option>
-				<option value="friday_lunch" <?php if($Meal == "friday_lunch") {echo "selected";} ?>>Friday Lunch</option>
-				<option value="friday_dinner" <?php if($Meal == "friday_dinner") {echo "selected";} ?>>Friday Dinner</option>
-				<option value="saturday_breakfast" <?php if($Meal == "saturday_breakfast") {echo "selected";} ?>>Saturday Breakfast</option>
-				<option value="saturday_lunch" <?php if($Meal == "saturday_lunch") {echo "selected";} ?>>Saturday Lunch</option>
-				<option value="saturday_dinner" <?php if($Meal == "saturday_dinner") {echo "selected";} ?>>Saturday Dinner</option>
-				<option value="sunday_breakfast" <?php if($Meal == "sunday_breakfast") {echo "selected";} ?>>Sunday Breakfast</option>
-				<option value="sunday_lunch" <?php if($Meal == "sunday_lunch") {echo "selected";} ?>>Sunday Lunch</option>
-				<option value="sunday_dinner" <?php if($Meal == "sunday_dinner") {echo "selected";} ?>>Sunday Dinner</option>
+				<option value=0 <?php if($Meal == 0) {echo "selected";} ?>>Monday Breakfast</option>
+				<option value=1 <?php if($Meal == 1) {echo "selected";} ?>>Monday Lunch</option>
+				<option value=2 <?php if($Meal == 2) {echo "selected";} ?>>Monday Dinner</option>
+				<option value=3 <?php if($Meal == 3) {echo "selected";} ?>>Tuesday Breakfast</option>
+				<option value=4 <?php if($Meal == 4) {echo "selected";} ?>>Tuesday Lunch</option>
+				<option value=5 <?php if($Meal == 5) {echo "selected";} ?>>Tuesday Dinner</option>
+				<option value=6 <?php if($Meal == 6) {echo "selected";} ?>>Wednesday Breakfast</option>
+				<option value=7 <?php if($Meal == 7) {echo "selected";} ?>>Wednesday Lunch</option>
+				<option value=8 <?php if($Meal == 8) {echo "selected";} ?>>Wednesday Dinner</option>
+				<option value=9 <?php if($Meal == 9) {echo "selected";} ?>>Thursday Breakfast</option>
+				<option value=10 <?php if($Meal == 10) {echo "selected";} ?>>Thursday Lunch</option>
+				<option value=11 <?php if($Meal == 11) {echo "selected";} ?>>Thursday Dinner</option>
+				<option value=12 <?php if($Meal == 12) {echo "selected";} ?>>Friday Breakfast</option>
+				<option value=13 <?php if($Meal == 13) {echo "selected";} ?>>Friday Lunch</option>
+				<option value=14 <?php if($Meal == 14) {echo "selected";} ?>>Friday Dinner</option>
+				<option value=15 <?php if($Meal == 15) {echo "selected";} ?>>Saturday Breakfast</option>
+				<option value=16 <?php if($Meal == 16) {echo "selected";} ?>>Saturday Lunch</option>
+				<option value=17 <?php if($Meal == 17) {echo "selected";} ?>>Saturday Dinner</option>
+				<option value=18 <?php if($Meal == 18) {echo "selected";} ?>>Sunday Breakfast</option>
+				<option value=19 <?php if($Meal == 19) {echo "selected";} ?>>Sunday Lunch</option>
+				<option value=20 <?php if($Meal == 20) {echo "selected";} ?>>Sunday Dinner</option>
 			</select>
 
 			<input type="submit" value="Go">
 		</form>
 	</div>
 
-	<h1>MENU</h1>
+	<h1 class="normal"><?php echo($mealsStrings[$Meal]); ?> MENU</h1>
 
 	<div>
-		<?php echo($Meal); ?>
-		<?php foreach($food_items as $item){ ?>
+		<?php 
+			$currentStation = "";
+			foreach($food_items as $item){ 
+				if($item['station'] != $currentStation) {
+					echo('<h2 class="normal">'.$item['station'].'</h2>');
+					$currentStation = $item['station'];
+				}
+				?>
 			<!-- Name of each dish -->
 			<p class="menu"> <?php echo htmlspecialchars($item['Name']); ?></p>
 
