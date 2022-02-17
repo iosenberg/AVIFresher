@@ -153,7 +153,7 @@
             </div> 
             <ul class="navbar__menu">
                 <li class="navbar__item"> 
-                    <a href="index.php" class="navbar__links">Home</a>
+                    <a href="index.html" class="navbar__links">Home</a>
                 </li>
                 
                 <li class="navbar__item"> 
@@ -162,8 +162,8 @@
                 <li class="navbar__item"> 
                     <a href="about.html" class="navbar__links">About Us</a>
                 </li>
-                <li class="navbar__btn"> 
-                    <a href="signup.html" class="button">Sign Up</a>
+                <li class="navbar__item">
+                    <a href="contact.html" class="navbar__links">Contact Us</a>
                 </li>
             </ul>
         </div>
