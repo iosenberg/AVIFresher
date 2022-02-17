@@ -15,6 +15,7 @@
   position: sticky;
   top: 0;
   z-index: 999;
+  border-bottom: 5px solid gold;
 }
 
 .navbar__container {
@@ -33,6 +34,8 @@
 #navbar__logo {
   background-color: #d62114;
   background-image: linear-gradient(to top, #ff0844 0%, #ff8b68 100%);
+  text-transform:uppercase;
+  /* border: 3px solid gold; */
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -214,7 +217,8 @@ img{
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  margin: 0px;
+  margin-top: 15px;
+  padding: auto;
 }
 
 .normal{
@@ -227,11 +231,26 @@ img{
   padding: 4px;
   margin: auto;
   display: block;
+  height: auto;
+  width: auto;
   max-width: 300px;
 }
 
 p{
   font-size: 1.1rem;
+}
+
+.station{
+  size: 30px;
+  margin: 30px;
+  border: 0px black;
+  border-radius: 10px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: #ffffff;
+  background-color: #000000;
 }
 
 
@@ -247,7 +266,7 @@ input[type=text], select, textarea {
 }
 
 input[type=submit] {
-  background-color: #04AA6D;
+  background-color: #b40000;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -256,7 +275,7 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-  background-color: #45a049;
+  background-color: #d34141;
 }
 
 input[type=text]:hover {
@@ -277,16 +296,31 @@ table {
 /* Style the button that is used to open and close the collapsible content */
 .collapsible {
   display:block; 
-  width:15%; 
+  width:80%; 
   margin:0 auto;
+  margin-bottom: 5px;
   background-color: #eee;
   color: #444;
   cursor: pointer;
   padding: 18px;
-  border: none;
+  border: 0px solid red;
   text-align: center;
   outline: none;
   font-size: 15px;
+}
+
+.premenu{
+  display:block; 
+  width:80%; 
+  margin:0 auto;
+}
+
+
+.food__item{
+  border: 1px solid black;
+  margin: auto;
+  text-align: center;
+  width: 80%;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
@@ -300,9 +334,10 @@ table {
   margin:0 auto;
   padding: 0 18px;
   display: none;
-  width: 15%;
+  width: 80%;
   overflow: hidden;
   background-color: #f1f1f1;
+  /* border: 3px solid black; */
 }
 
 form {
@@ -315,3 +350,78 @@ form {
   right:0;
 }
 
+/* Customize the label (the container) */
+.label__container {
+  /* display: block;
+  position: relative; */
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.label__container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* On mouse-over, add a grey background color */
+.label__container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.label__container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.label__container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.label__container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+/* horizontal line */
+
+.horizontal{
+  border: 1px solid black;
+  width:100%;
+  text-align:left;
+  margin-left:0; 
+  margin-top: 5px; 
+  margin-bottom: 5px;
+}
+
+.sort__label{
+  display:block; 
+  width:80%; 
+  margin:0 auto;
+  color: #444;
+  text-align: center;
+}

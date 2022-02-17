@@ -138,7 +138,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>AVI Fresher or whatever</title>
+	<title> AVI Fresher</title>
 	<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -162,13 +162,12 @@
                 <li class="navbar__item"> 
                     <a href="about.html" class="navbar__links">About Us</a>
                 </li>
-                <li class="navbar__btn"> 
-                    <a href="signup.html" class="button">Sign Up</a>
+                <li class="navbar__item">
+                    <a href="contact.html" class="navbar__links">Contact Us</a>
                 </li>
             </ul>
         </div>
     </nav>
-
     <!-- Here is where the actual menu begins-->
 
 	<!-- Button Test -->
@@ -198,50 +197,78 @@
 			}
 		</script>
 
-		<form onSubmit="return makeURL();">
+		<form class="premenu" onSubmit="return makeURL();">
 
-			<label for="Soy">Soy:</label>
+			<h3 class="normal"> Exclude any with:</h3>
+			<div>
+			<label for="Soy" class = "label__container">Soy:</label>
 			<input type="checkbox" id="Soy" name="Soy" <?php if($Soy) {echo "checked='checked'";} ?>>
+			</div>
 
-			<label for="Dairy">Dairy:</label>
+			<div>
+			<label for="Dairy" class = "label__container">Dairy:</label>
 			<input type="checkbox" id="Dairy" name="Dairy" <?php if($Dairy) {echo "checked='checked'";} ?>>
+			</div>
 
-			<label for="Wheat">Wheat:</label>
+			<div>
+			<label for="Wheat" class = "label__container">Wheat:</label>
 			<input type="checkbox" id="Wheat" name="Wheat" <?php if($Wheat) {echo "checked='checked'";} ?>>
+			</div>
 
-			<label for="Vegetarian">Vegetarian:</label>
-			<input type="checkbox" id="Vegetarian" name="Vegetarian" <?php if($Vegetarian) {echo "checked='checked'";} ?>>
-
-			<label for="Vegan">Vegan:</label>
-			<input type="checkbox" id="Vegan" name="Vegan" <?php if($Vegan) {echo "checked='checked'";} ?>>
-
-			<label for="Egg">Egg:</label>
+			<div>
+			<label for="Egg" class = "label__container">Egg:</label>
 			<input type="checkbox" id="Egg" name="Egg" <?php if($Egg) {echo "checked='checked'";} ?>>
+			</div>
 
-			<label for="Fish">Fish:</label>
+			<div>
+			<label for="Fish" class = "label__container">Fish:</label>
 			<input type="checkbox" id="Fish" name="Fish" <?php if($Fish) {echo "checked='checked'";} ?>>
+			</div>
 
-			<label for="Peanut">Peanut:</label>
+			<div>
+			<label for="Peanut" class = "label__container">Peanut:</label>
 			<input type="checkbox" id="Peanut" name="Peanut" <?php if($Peanut) {echo "checked='checked'";} ?>>
+			</div>
 
-			<label for="Shellfish">Shellfish:</label>
+			<div>
+			<label for="Shellfish"class = "label__container" >Shellfish:</label>
 			<input type="checkbox" id="Shellfish" name="Shellfish" <?php if($Shellfish) {echo "checked='checked'";} ?>>
-
-			<label for="Tree_Nut">Tree Nut:</label>
+			</div>
+			
+			<div>
+			<label for="Tree_Nut" class = "label__container">Tree Nut:</label>
 			<input type="checkbox" id="Tree_Nut" name="Tree_Nut" <?php if($Tree_Nut) {echo "checked='checked'";} ?>>
+			</div>
 
-			<label for="Gluten_Sensitive">Gluten Sensitive:</label>
+			<div>
+			<label for="Gluten_Sensitive" class = "label__container">Gluten Sensitive:</label>
 			<input type="checkbox" id="Gluten_Sensitive" name="Gluten_Sensitive" <?php if($Gluten_Sensitive) {echo "checked='checked'";} ?>>
+			</div>
+			
+			<h3 class="normal">Include any with:</h3>
+			<div>
+			<label for="Vegetarian" class = "label__container">Vegetarian:</label>
+			<input type="checkbox" id="Vegetarian" name="Vegetarian" <?php if($Vegetarian) {echo "checked='checked'";} ?>>
+			</div>
 
-			<label for="Halal">Halal:</label>
+			<div>
+			<label for="Vegan" class = "label__container">Vegan:</label>
+			<input type="checkbox" id="Vegan" name="Vegan" <?php if($Vegan) {echo "checked='checked'";} ?>>
+			</div>
+
+			<div>
+			<label for="Halal" class = "label__container">Halal:</label>
 			<input type="checkbox" id="Halal" name="Halal" <?php if($Halal) {echo "checked='checked'";} ?>>
+			</div>
 
-			<label for="Kosher">Kosher:</label>
+			<div>
+			<label for="Kosher" class = "label__container">Kosher:</label>
 			<input type="checkbox" id="Kosher" name="Kosher" <?php if($Kosher) {echo "checked='checked'";} ?>>
+			</div>
 
 			<br><br>
 
-			<label for="Sort">Sort by:</label>
+			<label for="Sort" class="sort__label">Sort by (decreasing):</label>
 			<select name="Sort">
 				<option value="Name" <?php if($Sort == "Name") {echo "selected";} ?>>Name</option>
 				<option value="Calories" <?php if($Sort == "Calories") {echo "selected";} ?>>Calories</option>
@@ -294,29 +321,30 @@
 			$currentStation = "";
 			foreach($food_items as $item){ 
 				if($item['station'] != $currentStation) {
-					echo('<h2 class="normal">'.$item['station'].'</h2>');
+					echo('<h2 class="station">'.$item['station'].'</h2>');
 					$currentStation = $item['station'];
 				}
 				?>
 			<!-- Name of each dish -->
+			<div class="food__item">
 			<p class="menu"> <?php echo htmlspecialchars($item['Name']); ?></p>
 
 			<!--Allergen tags-->
 			<table class="center">
 				<tr>
-					<?php if($item['Soy']) {echo '<th><img src="images/Soy.png" width="40" height="40" alt="Contains soy" id="main__img"></th>';} ?>
-					<?php if($item['Dairy']) {echo '<th><img src="images/Milk.png" width="40" height="40" alt="Contains milk" id="main__img"></th>';} ?>
-					<?php if($item['Wheat']) {echo '<th><img src="images/Wheat.png" width="40" height="40" alt="Contains wheat" id="main__img"></th>';} ?>
-					<?php if($item['Vegetarian']) {echo '<th><img src="images/Vegetarian.png" width="40" height="40" alt="Vegetarian" id="main__img"></th>';} ?>
-					<?php if($item['Vegan']) {echo '<th><img src="images/Vegan.png" width="40" height="40" alt="Vegan" id="main__img"></th>';} ?>
-					<?php if($item['Egg']) {echo '<th><img src="images/Egg.png" width="40" height="40" alt="Contains egg" id="main__img"></th>';} ?>
-					<?php if($item['Fish']) {echo '<th><img src="images/Fish.png" width="40" height="40" alt="Contains fish" id="main__img"></th>';} ?>
-					<?php if($item['Peanut']) {echo '<th><img src="images/Peanut.png" width="40" height="40" alt="Contains peanuts" id="main__img"></th>';} ?>
-					<?php if($item['Shellfish']) {echo '<th><img src="images/Shellfish.png" width="40" height="40" alt="Contains shellfish" id="main__img"></th>';} ?>
-					<?php if($item['Tree_Nut']) {echo '<th><img src="images/Tree_Nut.png" width="40" height="40" alt="Contains tree nuts" id="main__img"></th>';} ?>
-					<?php if($item['Gluten_Sensitive']) {echo '<th><img src="images/Gluten_Sensitive.png" width="40" height="40" alt="Contains gluten" id="main__img"></th>';} ?>
-					<?php if($item['Halal']) {echo '<th><img src="images/Halal.png" alt="Halal" width="40" height="40" id="main__img"></th>';} ?>
-					<?php if($item['Kosher']) {echo '<th><img src="images/Kosher.png" width="40" height="40" alt="Kosher" id="main__img"></th>';} ?>
+					<?php if($item['Soy']) {echo '<th><img src="images/Soy.png" width="30" height="30" alt="Contains soy" id="main__img"></th>';} ?>
+					<?php if($item['Dairy']) {echo '<th><img src="images/Milk.png" width="30" height="30" alt="Contains milk" id="main__img"></th>';} ?>
+					<?php if($item['Wheat']) {echo '<th><img src="images/Wheat.png" width="30" height="30" alt="Contains wheat" id="main__img"></th>';} ?>
+					<?php if($item['Vegetarian']) {echo '<th><img src="images/Vegetarian.png" width="30" height="30" alt="Vegetarian" id="main__img"></th>';} ?>
+					<?php if($item['Vegan']) {echo '<th><img src="images/Vegan.png" width="30" height="30" alt="Vegan" id="main__img"></th>';} ?>
+					<?php if($item['Egg']) {echo '<th><img src="images/Egg.png" width="30" height="30" alt="Contains egg" id="main__img"></th>';} ?>
+					<?php if($item['Fish']) {echo '<th><img src="images/Fish.png" width="30" height="30" alt="Contains fish" id="main__img"></th>';} ?>
+					<?php if($item['Peanut']) {echo '<th><img src="images/Peanut.png" width="30" height="30" alt="Contains peanuts" id="main__img"></th>';} ?>
+					<?php if($item['Shellfish']) {echo '<th><img src="images/Shellfish.png" width="30" height="30" alt="Contains shellfish" id="main__img"></th>';} ?>
+					<?php if($item['Tree_Nut']) {echo '<th><img src="images/Tree_Nut.png" width="30" height="30" alt="Contains tree nuts" id="main__img"></th>';} ?>
+					<?php if($item['Gluten_Sensitive']) {echo '<th><img src="images/Gluten_Sensitive.png" width="30" height="30" alt="Contains gluten" id="main__img"></th>';} ?>
+					<?php if($item['Halal']) {echo '<th><img src="images/Halal.png" alt="Halal" width="30" height="30" id="main__img"></th>';} ?>
+					<?php if($item['Kosher']) {echo '<th><img src="images/Kosher.png" width="30" height="30" alt="Kosher" id="main__img"></th>';} ?>
 				</tr>
 			</table>
 
@@ -369,10 +397,10 @@
                   <td><p><?php echo($item['Protein']);?>g</p></td>
                 </tr>
               </table>
+			</div>
           </div>
 		<?php } ?>
 	</div>
-
 	<!-- the following tag links it to the javascript file, make sure you add it to the body of every html file -->
     <script src="app.js"></script>
 </body>
